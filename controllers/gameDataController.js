@@ -3,7 +3,7 @@ const connection = require('../data/db');
 
 function index(req, res) {
     // prepariamo la query
-    const sql = 'SELECT * FROM factions';
+    const sql = 'SELECT * FROM factions, units';
     // eseguiamo la query!
     connection.query(sql, (err, results) => {
         if (err) return res.status(500).json({ error: 'Database query failed' });
@@ -16,7 +16,7 @@ function show(req, res) {
     const id = req.params.id
     console.log("ID richiesto:", id); // 👈 Aggiungi questo
     const sql = `
-        SELECT *
+        SELECT factions.*, units.*
         FROM factions
         JOIN units
         ON units.faction_id = factions.id
